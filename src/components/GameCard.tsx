@@ -4,6 +4,7 @@ import { Tooltip } from "@/components/ui/tooltip"
 import PlatFormIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
 import getCroppedImageurl from "@/services/image-url";
+import NoImage from "../assets/no-image-placeholder.webp";
 
 interface Props {
   game: Game;
@@ -12,7 +13,7 @@ const GameCard = ({ game }: Props) => {
   return (
     <>
       <Card.Root>
-        <Image src={getCroppedImageurl(game.background_image)} alt={game.name} />
+        <Image src={getCroppedImageurl(game.background_image) || NoImage} alt={game.name} />
         <Card.Body gap="1">
           <Card.Title>
             <Tooltip content={game.name} positioning={{ placement: "top-start" }}>
