@@ -22,10 +22,11 @@ const PlatFormIconList = ({ platforms }: Props) => {
     playstation: FaPlaystation,
     xbox: FaXbox,
     mac: FaApple,
-    macos: FaApple,
-    android: FaAndroid,
+    linux: FaLinux,
     ios: MdPhoneIphone,
+    android: FaAndroid,
     web: BsGlobe,
+    nintendo: SiNintendo,
   };
 
   return (

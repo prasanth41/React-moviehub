@@ -1,5 +1,5 @@
 import { Game } from "@/hooks/useGames";
-import { Card, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Card, HStack, Image, Text } from "@chakra-ui/react";
 import { Tooltip } from "@/components/ui/tooltip"
 import PlatFormIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
@@ -19,10 +19,14 @@ const GameCard = ({ game }: Props) => {
             <Text  overflow="hidden" textOverflow="ellipsis"  whiteSpace="nowrap">{game.name}</Text>
             </Tooltip>
             </Card.Title>
-          <HStack justifyContent="space-between">
-            <PlatFormIconList platforms={game.parent_platforms.map((platform) => platform.platform,)} />
+        <HStack justify="space-between" w="100%">
+          <Box maxW="70%" overflow="hidden">
+            <PlatFormIconList platforms={game.parent_platforms.map((p) => p.platform)} />
+          </Box>
+          <Box flexShrink={0}>
             <CriticScore score={game.metacritic} />
-          </HStack>
+          </Box>
+        </HStack>
         </Card.Body>
       </Card.Root>
     </>
