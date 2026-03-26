@@ -31,7 +31,7 @@ const PlatFormIconList = ({ platforms }: Props) => {
 
   return (
     <>
-      <HStack marginY={1}>
+      <HStack>
         {platforms.map((platform) => {
           const IconComponent = iconMap[platform.slug];
           if (!IconComponent) return null;

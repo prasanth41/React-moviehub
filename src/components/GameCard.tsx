@@ -13,20 +13,21 @@ const GameCard = ({ game }: Props) => {
     <>
       <Card.Root>
         <Image src={getCroppedImageurl(game.background_image)} alt={game.name} />
-        <Card.Body gap="1">
-          <Card.Title>
-            <Tooltip content={game.name} positioning={{ placement: "top-start" }}>
-            <Text  overflow="hidden" textOverflow="ellipsis"  whiteSpace="nowrap">{game.name}</Text>
-            </Tooltip>
-            </Card.Title>
-        <HStack justify="space-between" w="100%">
-          <Box maxW="70%" overflow="hidden">
+        <HStack justify="space-between" w="100%" marginY={5} paddingX={6}>
+          <Box>
             <PlatFormIconList platforms={game.parent_platforms.map((p) => p.platform)} />
           </Box>
           <Box flexShrink={0}>
             <CriticScore score={game.metacritic} />
           </Box>
         </HStack>
+        <Card.Body>
+          <Card.Title>
+            <Tooltip content={game.name} positioning={{ placement: "top-start" }}>
+            <Text  overflow="hidden" textOverflow="ellipsis" fontSize="2xl" whiteSpace="nowrap">{game.name}</Text>
+            </Tooltip>
+            </Card.Title>
+
         </Card.Body>
       </Card.Root>
     </>
