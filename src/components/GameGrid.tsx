@@ -4,7 +4,7 @@ import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameContainer";
 import { GameQuery } from "@/App";
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 interface Props {
   gameQuery: GameQuery;
 }
@@ -14,26 +14,33 @@ const GameGrid = ( { gameQuery }: Props ) => {
   return (
     <Box padding={10}>
       {error && <Text>{error.message}</Text>}
-      <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 4 }}
-        columnGap={5} rowGap={5} >
-        {isLoading && skeletons.map((skeleton) => (
-            <GameCardContainer key={skeleton}>
-              <GameCardSkeleton  />
-            </GameCardContainer>
-          ))}
+      <InfiniteScroll
+        dataLength={data?.pages.reduce((acc, page) => acc + page.results.length, 0) || 0}
+        next={() => fetchNextPage()}
+        hasMore={hasNextPage || false}
+        loader={<h4 key="loader">Loading...</h4>}
+      >
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, md: 3, lg: 4, xl: 4 }}
+          columnGap={5}
+          rowGap={5}
+        >
+          {isLoading &&
+            skeletons.map((skeleton) => (
+              <GameCardContainer key={skeleton}>
+                <GameCardSkeleton />
+              </GameCardContainer>
+            ))}
 
-          {data?.pages.map(page => (
-            page.results.map(game => (
+          {data?.pages.map((page) =>
+            page.results.map((game) => (
               <GameCardContainer key={game.id}>
                 <GameCard game={game} />
               </GameCardContainer>
-            ))
-          ))}
-      </SimpleGrid>
-      <Button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage} marginY={5}
-        variant="subtle" size="md" colorPalette="gray" >
-        {isFetchingNextPage ? 'Loading...' : hasNextPage ? 'Load More' : 'Nothing more to load'}
-      </Button>
+            )),
+          )}
+        </SimpleGrid>
+      </InfiniteScroll>
     </Box>
   );
 };
