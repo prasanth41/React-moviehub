@@ -8,3 +8,8 @@ const apiClient = axios.create({
 });
 
 export default apiClient;
+
+export interface FetchResponse<T> {
+    count: number;
+    results: T[];
+}
